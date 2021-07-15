@@ -1,0 +1,40 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+{{ super() }}
+    <style>
+        body {background-color: #000000;}
+    </style>
+{% endblock %}
+
+
+{% block title %}
+BHodl Calculator
+{% endblock %}
+
+{% block content %}
+<div style='padding: 1% 5% 5% 5%;'>
+    <div id="head_container" class="head" style='padding: 2% 2%;'>
+        <div>
+            <img class='logo' src="{{url_for('static', filename='images/bhodlcalculator-logo.png')}}"/>
+        </div>
+    </div>
+    <div class='head_text'>
+        <h4 style='padding-left: 2%; padding-right: 5%; color: #8c8c8c; font-weight: bold;'>If you had invested ${{amount}} in Bitcoin the {{date}}, 
+            your investment would worth ${{response['now_value']}} now. This is a {{response['gain_lost']}} of 
+            {% if response['gain_lost'] == "gain" %}
+                <span style='color: green;'>{{response['percent']}}%</span>
+            {% else %}
+                <span style='color: red;'>{{response['percent']}}%
+                    <span style='color: #8c8c8c;'>. Being a hodler is not always easy, be patient and you will 
+                    be rewarded!</span>
+                </span>
+            {% endif %}
+            . See below to change the investment value and date.</h4>
+    </div>
+    <div class="container" style='padding-left: 0%; padding-right: 40%;'>
+        {{ wtf.quick_form(form) }}
+    </div>
+</div>
+{% endblock %}
