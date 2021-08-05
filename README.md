@@ -31,7 +31,7 @@ You shoud now see something like this in the terminal window :
  * Debugger is active!
  * Debugger PIN:154-254-654
 ```
-Just point your browser to the address and your're good to go!
+Just point your browser to your <ip_address>:5000 and your're good to go!
 
 **To do**
 * Add safegard to prevent to much requests

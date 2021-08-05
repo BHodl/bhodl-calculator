@@ -4,8 +4,56 @@
 {% block styles %}
 {{ super() }}
     <style>
-        body {background-color: #000000;}
+        body {
+            background-color: black;
+            background: url({{ url_for('static', filename='images/backgroundss.jpg') }});
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+        .logo {
+            margin: 20px;
+        }
+        .box {
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid #ff6600 ;
+            background: url({{ url_for('static', filename='images/btn_background.png') }});
+            border-radius: 10px;
+            height: 90px;
+            display: inline-block;
+            max-width: 250px;
+            min-width: 180px;
+        }
+        .box p {
+            color: #ff6600;
+            size: 15px;
+        }
+        .box h4 {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+        .info {
+            text-align: center;
+        }    
+        .form {
+            margin: 20px;
+
+            max-width: 250px;
+            display: inline-block;
+            color: #ff6600;
+            text-align: left;
+        }
+        .block_text {
+            align-items: center;
+            margin: 20px;
+            max-width: 400px;
+            text-align: initial;
+            color: #4d4d4d;
+            font-weight: bold;
+            display: inline-block;
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 
@@ -14,27 +62,60 @@ BHodl Calculator
 {% endblock %}
 
 {% block content %}
-<div style='padding: 1% 5% 5% 5%;'>
-    <div id="head_container" class="head" style='padding: 2% 2%;'>
-        <div>
-            <img class='logo' src="{{url_for('static', filename='images/bhodlcalculator-logo.png')}}"/>
-        </div>
+<div>
+    <img class='logo' src="{{url_for('static', filename='images/bhodlcalculator-logo.png')}}"/>
+</div>
+<div style='text-align: center;'>
+    <div class='box'>
+        <i class="fa fa-calendar fa-2x" style="color: rgb(38, 100, 38);"><spam style='font-size: 15px;'>  {{date}}</spam></i>
+        <p>Date</p>
     </div>
-    <div class='head_text'>
-        <h4 style='padding-left: 2%; padding-right: 5%; color: #8c8c8c; font-weight: bold;'>If you had invested ${{amount}} in Bitcoin the {{date}}, 
+    <div class='box'>
+        <i class="fa fa-usd fa-2x" style="color: rgb(38, 100, 38);"><spam>{{amount}}</spam></i>
+        <p>Total invested</p>
+    </div>
+    <div class='box'>
+        {% if response['gain_lost'] == "gain" %}
+        <i class="fa fa-usd fa-2x" style="color: rgb(38, 100, 38);"><spam>{{response['now_value']}}</spam></i>
+        {% else %}
+        <i class="fa fa-usd fa-2x" style="color: red;"><spam>{{response['now_value']}}</spam></i>
+        {% endif %}
+        <p>Value now</p>
+    </div>
+    <div class='box' >
+        {% if response['gain_lost'] == "gain" %}
+        <i class="fa fa-percent fa-2x" style="color: rgb(38, 100, 38);"><spam>{{response['percent']}}</spam></i>
+        {% else %}
+        <i class="fa fa-percent fa-2x" style="color: red;"><spam>{{response['percent']}}</spam></i>
+        {% endif %}
+        <p>Percent change</p>
+    </div>
+</div>
+<div class=info>
+    <div class="form">
+        {{ wtf.form_errors(form, hiddens=True) }}
+        {{ wtf.form_field(form.amount) }}
+        {{ wtf.form_field(form.currency) }}
+        {{ wtf.form_field(form.date) }}
+        {{ wtf.form_field(form.submit) }}
+    </div>
+    <div class='block_text'>
+        <h4>Why Hodling?</h4>
+        <p>If you had invested ${{amount}} in Bitcoin the {{date}}, 
             your investment would worth ${{response['now_value']}} now. This is a {{response['gain_lost']}} of 
             {% if response['gain_lost'] == "gain" %}
-                <span style='color: green;'>{{response['percent']}}%</span>
+            <span style='color: rgb(38, 100, 38);'>{{response['percent']}}%</span>
             {% else %}
-                <span style='color: red;'>{{response['percent']}}%
-                    <span style='color: #8c8c8c;'>. Being a hodler is not always easy, be patient and you will 
-                    be rewarded!</span>
-                </span>
+            <span style='color: red;'>{{response['percent']}}%
+                <span style='color: #8c8c8c;'>. Being a hodler is not always easy, be patient and you will 
+                be rewarded!</span>
+            </span>
             {% endif %}
-            . See below to change the investment value and date.</h4>
-    </div>
-    <div class="container" style='padding-left: 0%; padding-right: 40%;'>
-        {{ wtf.quick_form(form) }}
+            Change the investment value and date.
+        </p>
     </div>
 </div>
 {% endblock %}
+
+
+
