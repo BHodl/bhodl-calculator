@@ -1,7 +1,7 @@
 **Description**
 
 `bhodl-calculator` is a simple webapp that use Coingekko API to calculate the current value of a previous investment in Bitcoin.
-You can try it with my live [demo](https://calculator.bhodl.io). Note that the API can only handle 100 requests/minutes, so the best is to run it youself.
+You can try it with my live [demo](https://bhodl.io/bhodl). Note that the API can only handle 100 requests/minutes, so the best is to run it youself.
 
 **Setup**
 
