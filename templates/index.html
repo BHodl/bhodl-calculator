@@ -93,11 +93,7 @@ BHodl Calculator
 </div>
 <div class=info>
     <div class="form">
-        {{ wtf.form_errors(form, hiddens=True) }}
-        {{ wtf.form_field(form.amount) }}
-        {{ wtf.form_field(form.currency) }}
-        {{ wtf.form_field(form.date) }}
-        {{ wtf.form_field(form.submit) }}
+        {{ wtf.quick_form(form)}}
     </div>
     <div class='block_text'>
         <h4>Why Hodling?</h4>
